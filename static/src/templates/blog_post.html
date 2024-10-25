@@ -1,0 +1,21 @@
+<div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h1 style="font-size: 2.5em; margin-bottom: 20px; text-align: center;">{{ post.title }}</h1>
+
+    <div style="margin-bottom: 20px; color: #666; font-size: 0.9em;">
+        <em>发布于: {{ post.date_published.strftime('%Y-%m-%d') }}</em>  <!-- 确保使用正确的日期字段 -->
+    </div>
+
+    <div style="line-height: 1.6; font-size: 1.1em; color: #333;">
+        {{ post.content | safe }}  <!-- 确保内容安全呈现 -->
+    </div>
+
+    {% if post.image %}
+        <div style="text-align: center; margin: 20px 0;">
+            <img src="/blog.post/{{ post.id }}/media/image" alt="{{ post.title }}" style="max-width: 100%; height: auto; border-radius: 8px;">
+        </div>
+    {% endif %}
+
+    <div style="margin-top: 30px;">
+        <a href="/blog" style="text-decoration: none; color: #007BFF;">返回博客列表</a>
+    </div>
+</div>
