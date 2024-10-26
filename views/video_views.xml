@@ -2,7 +2,7 @@
 <odoo>
     <!-- 视频 Form View -->
     <record id="view_media_video_form" model="ir.ui.view">
-        <field name="name">media_video</field>
+        <field name="name">media_video_form</field>
         <field name="model">media.video</field>
         <field name="arch" type="xml">
             <form string="视频">
@@ -19,10 +19,15 @@
 
     <!-- 视频 Tree View -->
     <record id="view_media_video_tree" model="ir.ui.view">
-        <field name="name">media_video</field>
+        <field name="name">media_video_tree</field>
         <field name="model">media.video</field>
         <field name="arch" type="xml">
             <tree string="视频">
+
+                <header>
+                    <button string="复制视频链接" type="object" name="copy_url" class="btn-primary" />
+                </header>
+
                 <field name="name"/>
                 <field name="url"/>
                 <field name="video"/>
@@ -32,7 +37,7 @@
 
     <!-- 视频 Search View -->
     <record id="view_media_video_search" model="ir.ui.view">
-        <field name="name">media_video</field>
+        <field name="name">view_media_video_search</field>
         <field name="model">media.video</field>
         <field name="arch" type="xml">
             <search string="视频">

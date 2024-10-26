@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api
 from bs4 import BeautifulSoup
-
+import pyperclip
 from odoo.tools.populate import compute
 
 
@@ -55,3 +55,14 @@ class MediaVideo(models.Model):
         '''
         for record in self:
             record.url = f'/{record._name}/{record.id}/media/video'
+
+    def copy_url(self):
+        # 获取当前域名(带http协议头)
+        domain = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        str_list = []
+        for record in self:
+            url = f'{domain}/{record._name}/{record.id}/media/video'
+            str_list.append(url)
+
+        pyperclip.copy("\n".join(str_list))
+        self.env.user.notify_success("复制成功！")
