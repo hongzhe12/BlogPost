@@ -12,7 +12,6 @@
                         <field name="content"/>
                         <field name="author_id"/>
                         <field name="date_published"/>
-                        <field name="media_video_ids"/>
                     </group>
 
                     <!-- 嵌套的视频列表 -->
