@@ -12,7 +12,6 @@
                         <field name="content"/>
                         <field name="author_id"/>
                         <field name="date_published"/>
-                        <field name="image" widget="image"/>
                     </group>
                 </sheet>
             </form>
@@ -27,10 +26,9 @@
             <tree string="博客文章">
                 <field name="id"/>
                 <field name="title"/>
-                <field name="content" />
+                <field name="summary" />
                 <field name="author_id"/>
                 <field name="date_published"/>
-                <field name="image"/>
             </tree>
         </field>
     </record>

@@ -2,6 +2,8 @@
     <h1 style="font-size: 2.5em; margin-bottom: 20px; text-align: center;">{{ post.title }}</h1>
 
     <div style="margin-bottom: 20px; color: #666; font-size: 0.9em;">
+        <em>作者: {{ post.author_id.name }}</em>
+        &emsp;
         <em>发布于: {{ post.date_published.strftime('%Y-%m-%d') }}</em>  <!-- 确保使用正确的日期字段 -->
     </div>
 
