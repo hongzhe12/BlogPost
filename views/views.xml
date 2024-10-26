@@ -11,6 +11,7 @@
                         <field name="title"/>
                         <field name="content"/>
                         <field name="author_id"/>
+                        <field name="video_url"/>
                         <field name="date_published"/>
                     </group>
                 </sheet>
@@ -26,7 +27,7 @@
             <tree string="博客文章">
                 <field name="id"/>
                 <field name="title"/>
-                <field name="summary" />
+                <field name="summary"/>
                 <field name="author_id"/>
                 <field name="date_published"/>
             </tree>
@@ -34,15 +35,15 @@
     </record>
 
     <!-- 博客文章 Search View -->
-    <!--    <record id="view_blog_post_search" model="ir.ui.view">-->
-    <!--        <field name="name">blog_post</field>-->
-    <!--        <field name="model">blog.post</field>-->
-    <!--        <field name="arch" type="xml">-->
-    <!--            <search string="博客文章">-->
-    <!--                <field name="name" string="博客文章号"/>-->
-    <!--            </search>-->
-    <!--        </field>-->
-    <!--    </record>-->
+    <record id="view_blog_post_search" model="ir.ui.view">
+        <field name="name">blog_post</field>
+        <field name="model">blog.post</field>
+        <field name="arch" type="xml">
+            <search string="博客文章">
+                <field name="title" string="标题"/>
+            </search>
+        </field>
+    </record>
 
     <!-- 博客文章 Action -->
     <record id="action_blog_post" model="ir.actions.act_window">

@@ -3,6 +3,8 @@
 from odoo import models, fields, api
 from bs4 import BeautifulSoup
 
+from odoo.tools.populate import compute
+
 
 class BlogPost(models.Model):
     _name = 'blog.post'  # 模型名称
@@ -10,10 +12,10 @@ class BlogPost(models.Model):
 
     title = fields.Char(string='标题', required=True)  # 博客标题
     content = fields.Html(string='内容', required=True)  # 博客内容
-    summary = fields.Text(string='摘要',compute = "_compute_summary")  # 博客摘要
+    summary = fields.Text(string='摘要', compute="_compute_summary")  # 博客摘要
     author_id = fields.Many2one('res.users', string='作者')  # 作者
     date_published = fields.Datetime(string='发布日期', default=fields.Datetime.now)  # 发布时间
-    image = fields.Binary(string='图片')  # 博客图片
+    video_url = fields.Char(string='视频地址')  # 视频地址
 
     @api.depends('content')
     def _compute_summary(self):
@@ -26,6 +28,19 @@ class BlogPost(models.Model):
                 record.summary = text[:15] + '...'
 
 
+class MediaVideo(models.Model):
+    _name = 'media.video'
+    _description = '视频'
+    name = fields.Char(string='名称')
+    video = fields.Binary(string='视频', attachment=True)
+    url = fields.Char(string='视频地址',compute = '_compute_url')
 
+    @api.depends('video')
+    def _compute_url(self):
+        '''
+        '/<model_name>/<int:record_id>/media/<string:field_name>'
+        '''
+        for record in self:
+            record.url = f'/{record._name}/{record.id}/media/video'
 
 

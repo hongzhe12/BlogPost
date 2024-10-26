@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- 视频 Form View -->
+    <record id="view_media_video_form" model="ir.ui.view">
+        <field name="name">media_video</field>
+        <field name="model">media.video</field>
+        <field name="arch" type="xml">
+            <form string="视频">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="url"/>
+                        <field name="video"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 视频 Tree View -->
+    <record id="view_media_video_tree" model="ir.ui.view">
+        <field name="name">media_video</field>
+        <field name="model">media.video</field>
+        <field name="arch" type="xml">
+            <tree string="视频">
+                <field name="name"/>
+                <field name="url"/>
+                <field name="video"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 视频 Search View -->
+    <record id="view_media_video_search" model="ir.ui.view">
+        <field name="name">media_video</field>
+        <field name="model">media.video</field>
+        <field name="arch" type="xml">
+            <search string="视频">
+                <field name="name" string="视频"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- 视频 Action -->
+    <record id="action_media_video" model="ir.actions.act_window">
+        <field name="name">视频信息</field>
+        <field name="res_model">media.video</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                创建第一个视频信息
+            </p>
+        </field>
+    </record>
+
+    <!-- 视频 Menuitem -->
+    <menuitem id="menu_media_video_root" name="视频"/>
+    <menuitem id="menu_media_video" name="视频信息" parent="menu_media_video_root" action="action_media_video"
+              sequence="20"/>
+</odoo>

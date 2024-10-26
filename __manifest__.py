@@ -26,6 +26,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/views.xml',
+        'views/video_views.xml',
         'views/templates.xml',
     ],
     'web.assets_backend': [
