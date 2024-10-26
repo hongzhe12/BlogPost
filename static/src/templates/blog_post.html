@@ -19,14 +19,15 @@
     {% endif %}
 
 
-    {% if post.video_url %}
+    {% for video in post.media_video_ids %}
         <div class="text-center">
-            <video class="img-fluid" controls style="max-width: 100%; height: 60%;width: 100%; border-radius: 8px;">
-                <source src="{{ post.video_url }}" type="video/mp4">
+            <video class="img-fluid" controls style="max-width: 100%; width: 100%;height: 60%; border-radius: 8px;">
+                <source src="{{ video.url }}" type="video/mp4">
                 您的浏览器不支持 video 标签。
             </video>
         </div>
-    {% endif %}
+    {% endfor %}
+
 
     <div style="margin-top: 30px;">
         <a href="/blog" style="text-decoration: none; color: #007BFF;">返回博客列表</a>

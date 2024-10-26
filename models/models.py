@@ -15,7 +15,13 @@ class BlogPost(models.Model):
     summary = fields.Text(string='摘要', compute="_compute_summary")  # 博客摘要
     author_id = fields.Many2one('res.users', string='作者')  # 作者
     date_published = fields.Datetime(string='发布日期', default=fields.Datetime.now)  # 发布时间
-    video_url = fields.Char(string='视频地址')  # 视频地址
+    # video_url = fields.Char(string='视频地址')  # 视频地址
+    media_video_ids = fields.Many2many(
+        'media.video',
+        'blog_post_media_video_rel',
+        'blog_post_id',
+        'media_video_id',
+        string='视频')
 
     @api.depends('content')
     def _compute_summary(self):
@@ -33,7 +39,14 @@ class MediaVideo(models.Model):
     _description = '视频'
     name = fields.Char(string='名称')
     video = fields.Binary(string='视频', attachment=True)
-    url = fields.Char(string='视频地址',compute = '_compute_url')
+    url = fields.Char(string='视频地址', compute='_compute_url')
+    blog_post_ids = fields.Many2many(
+        'blog.post',
+        'blog_post_media_video_rel',
+        'media_video_id',
+        'blog_post_id',
+        string='博客列表'
+    )
 
     @api.depends('video')
     def _compute_url(self):
@@ -42,5 +55,3 @@ class MediaVideo(models.Model):
         '''
         for record in self:
             record.url = f'/{record._name}/{record.id}/media/video'
-
-

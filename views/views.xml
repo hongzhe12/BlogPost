@@ -11,10 +11,25 @@
                         <field name="title"/>
                         <field name="content"/>
                         <field name="author_id"/>
-                        <field name="video_url"/>
                         <field name="date_published"/>
+                        <field name="media_video_ids"/>
                     </group>
+
+                    <!-- 嵌套的视频列表 -->
+                    <notebook>
+                        <page string="视频">
+                            <field name="media_video_ids">
+                                <tree string="视频">
+                                    <field name="name"/>
+                                    <field name="video"/>
+                                    <field name="url"/>
+                                    <field name="blog_post_ids"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
+
             </form>
         </field>
     </record>
