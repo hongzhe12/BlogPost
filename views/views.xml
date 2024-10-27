@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- 博客文章 Form View -->
+    <record id="view_blog_post_form" model="ir.ui.view">
+        <field name="name">blog_post</field>
+        <field name="model">blog.post</field>
+        <field name="arch" type="xml">
+            <form string="博客文章">
+                <sheet>
+                    <group>
+                        <field name="title"/>
+                        <field name="author_id"/>
+                        <field name="summary"/>
+                        <field name="date_published"/>
+                        <field name="content_block_ids"/>
+                    </group>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <!-- 博客文章 Tree View -->
+    <record id="view_blog_post_tree" model="ir.ui.view">
+        <field name="name">blog_post</field>
+        <field name="model">blog.post</field>
+        <field name="arch" type="xml">
+            <tree string="博客文章">
+                <field name="id"/>
+                <field name="title"/>
+                <field name="summary"/>
+                <field name="author_id"/>
+                <field name="date_published"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 博客文章 Search View -->
+    <record id="view_blog_post_search" model="ir.ui.view">
+        <field name="name">blog_post</field>
+        <field name="model">blog.post</field>
+        <field name="arch" type="xml">
+            <search string="博客文章">
+                <field name="title" string="标题"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- 博客文章 Action -->
+    <record id="action_blog_post" model="ir.actions.act_window">
+        <field name="name">博客文章信息</field>
+        <field name="res_model">blog.post</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                创建第一个博客文章信息
+            </p>
+        </field>
+    </record>
+
+    <!-- 博客文章 Menuitem -->
+    <menuitem id="menu_blog_post_root" name="博客文章"/>
+    <menuitem id="menu_blog_post" name="博客文章信息" parent="menu_blog_post_root" action="action_blog_post"
+              sequence="10"/>
+</odoo>

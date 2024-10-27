@@ -1,0 +1,132 @@
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">#}
+{#    <title>博客列表</title>#}
+{#</head>#}
+{##}
+{#<!-- 顶部导航栏 -->#}
+{#<nav class="navbar navbar-expand-lg" style="background-color: #3c3f41;">#}
+{#    <div class="container">#}
+{#        <a class="navbar-brand" href="/blog" style="color: #fff; font-weight: bold;">文章</a>#}
+{#        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="切换导航">#}
+{#            <span class="navbar-toggler-icon"></span>#}
+{#        </button>#}
+{#        <div class="collapse navbar-collapse" id="navbarNav">#}
+{#            <ul class="navbar-nav ml-auto">#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="/blog" style="color: #fff;">首页</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="#" style="color: #fff;">关于我们</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="#" style="color: #fff;">联系我们</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </div>#}
+{#    </div>#}
+{#</nav>#}
+{##}
+{##}
+{##}
+{#<div style="max-width: 800px; margin: 0 auto; padding: 20px;">#}
+{#    <h1 style="font-size: 2.5em; margin-bottom: 20px; text-align: center;">{{ post.title }}</h1>#}
+{##}
+{#    <div style="margin-bottom: 20px; color: #666; font-size: 0.9em;">#}
+{#        <em>作者: {{ post.author_id.name }}</em>#}
+{#        &emsp;#}
+{#        <em>发布于: {{ post.date_published.strftime('%Y-%m-%d') }}</em>  <!-- 确保使用正确的日期字段 -->#}
+{#    </div>#}
+{##}
+{#    <div style="line-height: 1.6; font-size: 1.1em; color: #333;">#}
+{#        {{ post.content | safe }}  <!-- 确保内容安全呈现 -->#}
+{#    </div>#}
+{##}
+{#    {% if post.image %}#}
+{#        <div style="text-align: center; margin: 20px 0;">#}
+{#            <img src="/blog.post/{{ post.id }}/media/image" alt="{{ post.title }}"#}
+{#                 style="max-width: 100%; height: auto; border-radius: 8px;">#}
+{#        </div>#}
+{#    {% endif %}#}
+{##}
+{##}
+{#    {% for video in post.media_video_ids %}#}
+{#        <div class="text-center">#}
+{#            <video class="img-fluid" controls style="max-width: 100%; width: 100%;height: 60%; border-radius: 8px;">#}
+{#                <source src="{{ video.url }}" type="video/mp4">#}
+{#                您的浏览器不支持 video 标签。#}
+{#            </video>#}
+{#        </div>#}
+{#    {% endfor %}#}
+{##}
+{##}
+{#    <div style="margin-top: 30px;">#}
+{#        <a href="/blog" style="text-decoration: none; color: #007BFF;">返回文章列表</a>#}
+{#    </div>#}
+{##}
+{##}
+{#</div>#}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>{{ post.title }}</title>
+</head>
+
+<!-- 顶部导航栏 -->
+<nav class="navbar navbar-expand-lg" style="background-color: #3c3f41;">
+    <div class="container">
+        <a class="navbar-brand" href="/blog" style="color: #fff; font-weight: bold;">文章</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="切换导航">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog" style="color: #fff;">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="color: #fff;">关于我们</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container" style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <h1 class="text-center" style="font-size: 2.5em; margin-bottom: 20px;">{{ post.title }}</h1>
+
+    <div class="text-muted text-center mb-4">
+        <em>作者: {{ post.author_id.name }}</em>
+        &emsp;
+        <em>发布于: {{ post.date_published.strftime('%Y-%m-%d') }}</em>
+    </div>
+
+    <div style="line-height: 1.6; font-size: 1.1em; color: #333;">
+        {% for block in post.content_block_ids %}
+            {% if block.type == 'text' %}
+                <p>{{ block.text_content | safe }}</p>
+            {% elif block.type == 'html' %}
+                <p>{{ block.content | safe }}</p>
+            {% elif block.type == 'image' %}
+                <div class="text-center">
+                    <img src="data:image/png;base64,{{ block.image_content }}" alt="图片"
+                         class="img-fluid rounded" style="max-width: 100%; height: auto;">
+                </div>
+            {% elif block.type == 'video' %}
+                <div class="text-center">
+                    <video class="img-fluid rounded" controls style="max-width: 100%; height: auto;">
+                        <source src="{{ block.video_id.url }}" type="video/mp4">
+                        您的浏览器不支持 video 标签。
+                    </video>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="mt-4 text-center">
+        <a href="/blog" class="btn btn-primary">返回文章列表</a>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_blog_post_user,blog.post.user,model_blog_post,base.group_user,1,1,1,1
+access_blog_post_public,blog.post.public,model_blog_post,base.group_public,1,0,0,0
+access_media_video_user,media.video.user,model_media_video,base.group_user,1,1,1,1
+access_media_video_public,media.video.public,model_media_video,base.group_public,1,0,0,0
+access_blog_content_block_user,blog.content.block.user,model_blog_content_block,base.group_user,1,1,1,1
