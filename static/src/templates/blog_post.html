@@ -106,15 +106,8 @@
 
     <div style="line-height: 1.6; font-size: 1.1em; color: #333;">
         {% for block in post.content_block_ids %}
-            {% if block.type == 'text' %}
-                <p>{{ block.text_content | safe }}</p>
-            {% elif block.type == 'html' %}
+            {% if block.type == 'html' %}
                 <p>{{ block.content | safe }}</p>
-            {% elif block.type == 'image' %}
-                <div class="text-center">
-                    <img src="data:image/png;base64,{{ block.image_content }}" alt="图片"
-                         class="img-fluid rounded" style="max-width: 100%; height: auto;">
-                </div>
             {% elif block.type == 'video' %}
                 <div class="text-center">
                     <video class="img-fluid rounded" controls style="max-width: 100%; height: auto;">

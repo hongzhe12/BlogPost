@@ -15,40 +15,27 @@ class BlogPost(models.Model):
     summary = fields.Text(string='摘要')  # 博客摘要
     author_id = fields.Many2one('res.users', string='作者')  # 作者
     date_published = fields.Datetime(string='发布日期', default=fields.Datetime.now)  # 发布时间
-    # media_video_ids = fields.Many2many(
-    #     'media.video',
-    #     'blog_post_media_video_rel',
-    #     'blog_post_id',
-    #     'media_video_id',
-    #     string='视频')
-
-    # @api.depends('content')
-    # def _compute_summary(self):
-    #     for record in self:
-    #         print(record.content)
-    #         soup = BeautifulSoup(record.content, 'html.parser')
-    #         text = soup.get_text().strip().replace('\n', ' ')
-    #         if len(record.content) > 15:
-    #             record.summary = text[:15] + '...'
-    #         else:
-    #             record.summary = text[:15] + '...'
 
 
 class ContentBlock(models.Model):
     _name = 'blog.content.block'
     _description = 'Content Block'
-    name = fields.Char(string='块名称', required=True)
+    _order = 'sequence'
+
+    sequence = fields.Integer(string='序号', required=True, default=lambda self: self._get_next_sequence())
     post_id = fields.Many2one('blog.post', string='博客文章', ondelete='cascade')
     type = fields.Selection([
-        ('text', '文本'),
-        ('image', '图片'),
         ('video', '视频'),
         ('html', '超文本'),
     ], string='块类型', required=True)
-    text_content = fields.Text('文本内容')  # 文本内容
-    content = fields.Html(string='内容', required=True)  # Html内容
-    image_content = fields.Binary('图片内容')  # 图片内容
+
+    content = fields.Html(string='内容')  # Html内容
     video_id = fields.Many2one('media.video', string='视频')  # 关联视频
+
+    def _get_next_sequence(self):
+        # 获取当前模型的最大sequence值 + 1
+        last_sequence = self.env['blog.content.block'].search([], order='sequence desc', limit=1).sequence
+        return last_sequence + 1 if last_sequence else 1
 
 
 class MediaVideo(models.Model):
@@ -57,14 +44,6 @@ class MediaVideo(models.Model):
     name = fields.Char(string='名称')
     video = fields.Binary(string='视频', attachment=True)
     url = fields.Char(string='视频地址', compute='_compute_url')
-
-    # blog_post_ids = fields.Many2many(
-    #     'blog.post',
-    #     'blog_post_media_video_rel',
-    #     'media_video_id',
-    #     'blog_post_id',
-    #     string='博客列表'
-    # )
 
     @api.depends('video')
     def _compute_url(self):

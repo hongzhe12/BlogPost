@@ -28,6 +28,7 @@
         'views/views.xml',
         'views/video_views.xml',
         'views/templates.xml',
+        'views/block_views.xml',
     ],
     'web.assets_backend': [
         'blog_post/static/src/custom.js',

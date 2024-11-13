@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- 内容块 Form View -->
+    <record id="view_blog_content_block_form" model="ir.ui.view">
+        <field name="name">blog_content_block_form</field>
+        <field name="model">blog.content.block</field>
+        <field name="arch" type="xml">
+            <form string="内容块">
+                <sheet>
+                    <group>
+                        <field name="sequence"/>
+                        <field name="type"/>
+                        <!-- content字段仅当type为html时显示 -->
+                        <field name="content" attrs="{'invisible': [('type', '!=', 'html')]}"  widget="html"/>
+                        <!-- video_id字段仅当type为video时显示 -->
+                        <field name="video_id" attrs="{'invisible': [('type', '!=', 'video')]}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- 内容块 Tree View -->
+    <record id="view_blog_content_block_tree" model="ir.ui.view">
+        <field name="name">blog_content_block_tree</field>
+        <field name="model">blog.content.block</field>
+        <field name="arch" type="xml">
+            <tree string="内容块">
+                <field name="sequence"/>
+                <field name="post_id"/>
+                <field name="type"/>
+                <field name="content"/>
+                <field name="video_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- 内容块 Search View -->
+    <record id="view_blog_content_block_search" model="ir.ui.view">
+        <field name="name">blog_content_block_search</field>
+        <field name="model">blog.content.block</field>
+        <field name="arch" type="xml">
+            <search string="内容块">
+                <field name="sequence"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- 内容块 Action -->
+    <record id="action_blog_content_block" model="ir.actions.act_window">
+        <field name="name">内容块信息</field>
+        <field name="res_model">blog.content.block</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                创建第一个内容块信息
+            </p>
+        </field>
+    </record>
+
+    <!-- 内容块 Menuitem -->
+    <menuitem id="menu_blog_content_block_root" name="内容块"/>
+    <menuitem id="menu_blog_content_block" name="内容块信息" parent="menu_blog_content_block_root" action="action_blog_content_block" sequence="10"/>
+</odoo>
+
+
+
